@@ -1,6 +1,7 @@
 package user
 
 import (
+	"errors"
 	"github.com/asdine/storm"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -18,7 +19,7 @@ const (
 
 //Errors
 var (
-	ErrRecordInvalid = errors.New("Record is Invlaid")
+	ErrRecordInvalid = errors.New("record is invlaid")
 )
 
 //All() retrieves all users from the database

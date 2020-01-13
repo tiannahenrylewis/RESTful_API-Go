@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"gopkg.in/mgo.v2/bson"
-	"fmt"
 	"net/http"
 	"strings"
 )
@@ -14,6 +13,7 @@ func UsersRouter(w http.ResponseWriter, r *http.Request) {
 	if path == "/users" {
 		switch r.Method {
 		case http.MethodGet:
+			usersGetAll(w, r)
 			return
 		case http.MethodPost:
 			return
@@ -22,6 +22,7 @@ func UsersRouter(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+
 	path = strings.TrimPrefix(path, "/users/")
 	if !bson.IsObjectIdHex(path) {
 		postError(w, http.StatusNotFound)
@@ -40,6 +41,7 @@ func UsersRouter(w http.ResponseWriter, r *http.Request) {
 	case http.MethodDelete:
 		return
 	default:
+		postError(w, http.StatusMethodNotAllowed)
 		return
 	}
 }
